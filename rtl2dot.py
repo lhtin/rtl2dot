@@ -192,7 +192,7 @@ def read_func2(func_name, lines):
             bb_label_map[bb_key] = ''
         if is_insn(insn_name) or is_jump_insn(insn_name) or is_call_insn(insn_name):
             code = get_code(list)
-            label = '{1} {2}\\r{0}\l'.format(code.replace('"', '\\"').replace('\n', '\l'), insn_name, list[1])
+            label = '{1} {2}\\r{0}\l\n'.format(code.replace('"', '\\"').replace('\n', '\l'), insn_name, list[1])
             bb_label_map[bb_key] += label
             current_node_with_label += '[label="{0}"]'.format(label)
             if is_jump_insn(insn_name) and item['label_next'] != '0':
