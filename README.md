@@ -1,5 +1,7 @@
 # rtl2dot
 
+### Usage
+
 ```shell
 gcc lab.c -O3 -fdump-rtl-all
 python3 rtl2dot.py lab.c.229r.expand -o lab.c.229r.dot
