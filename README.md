@@ -11,12 +11,12 @@ python3 rtl2dot.py lab1.c.237r.expand -o lab1.c.237r.dot
 
 The output lab1.c.237r.dot file which can be copy to http://magjac.com/graphviz-visual-editor/ to preview or use [`dot`](https://graphviz.org/doc/info/command.html) program `dot -Tpng lab1.c.237r.dot > lab1.c.237r.png`
 
-preview:
+#### preview
 
 ![237r](https://user-images.githubusercontent.com/13173904/137745927-ee633810-7596-48d9-8755-deb191034aa3.png)
 
 
-lab1.c:
+#### lab1.c
 
 ```c
 int func1(int* a, int* b, int* c, int* d, int* restrict e)
@@ -32,7 +32,7 @@ int func1(int* a, int* b, int* c, int* d, int* restrict e)
 }
 ```
 
-lab1.c.237r.expand:
+#### lab1.c.237r.expand
 
 ```
 
@@ -149,7 +149,7 @@ try_optimize_cfg iteration 2
      (nil))
 ```
 
-lab1.c.237r.dot:
+#### lab1.c.237r.dot
 
 ```dot
 digraph rtl {
