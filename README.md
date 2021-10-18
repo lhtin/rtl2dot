@@ -1,5 +1,7 @@
 # rtl2dot
 
+> The Python code may be ugly, because I am new to Python. If you like to refactor it, feel free to do it.
+
 ### Usage
 
 ```shell
