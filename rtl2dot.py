@@ -1,4 +1,4 @@
-# a little program can convert gcc rlt dump(-fdump-rtl-al) file to .dot file
+# a little program can convert gcc rlt dump(-fdump-rtl-all) file to .dot file
 # then the .dot file can be previewed on http://magjac.com/graphviz-visual-editor/
 # author: lhtin(github)
 # date: 2021-10-18
