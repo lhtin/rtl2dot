@@ -5,8 +5,8 @@
 ### Usage
 
 ```shell
-gcc lab.c -O3 -fdump-rtl-all
-python3 rtl2dot.py lab.c.237r.expand -o lab.c.237r.dot
+gcc lab1.c -O3 -fdump-rtl-all
+python3 rtl2dot.py lab1.c.237r.expand -o lab1.c.237r.dot
 # output a .dot file which can be copy to http://magjac.com/graphviz-visual-editor/ to preview
 ```
 
@@ -15,7 +15,7 @@ preview:
 ![237r](https://user-images.githubusercontent.com/13173904/137745417-3334998a-7767-4028-8e61-646ebf3431c9.png)
 
 
-lab.c:
+lab1.c:
 
 ```c
 int func1(int* a, int* b, int* c, int* d, int* restrict e)
@@ -31,7 +31,7 @@ int func1(int* a, int* b, int* c, int* d, int* restrict e)
 }
 ```
 
-lab.c.237r.expand:
+lab1.c.237r.expand:
 
 ```
 
@@ -148,7 +148,7 @@ try_optimize_cfg iteration 2
      (nil))
 ```
 
-lab.c.237r.dot:
+lab1.c.237r.dot:
 
 ```dot
 digraph rtl {
