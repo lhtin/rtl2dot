@@ -10,6 +10,11 @@ python3 rtl2dot.py lab.c.237r.expand -o lab.c.237r.dot
 # output a .dot file which can be copy to http://magjac.com/graphviz-visual-editor/ to preview
 ```
 
+preview:
+
+![237r](https://user-images.githubusercontent.com/13173904/137745417-3334998a-7767-4028-8e61-646ebf3431c9.png)
+
+
 lab.c:
 
 ```c
