@@ -12,7 +12,7 @@ python3 rtl2dot.py lab1.c.237r.expand -o lab1.c.237r.dot
 
 preview:
 
-![237r](https://user-images.githubusercontent.com/13173904/137745417-3334998a-7767-4028-8e61-646ebf3431c9.png)
+![237r](https://user-images.githubusercontent.com/13173904/137745927-ee633810-7596-48d9-8755-deb191034aa3.png)
 
 
 lab1.c:
