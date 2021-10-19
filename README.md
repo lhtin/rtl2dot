@@ -13,8 +13,7 @@ The output lab1.c.237r.dot file which can be copy to http://magjac.com/graphviz-
 
 #### preview
 
-![237r](https://user-images.githubusercontent.com/13173904/137745927-ee633810-7596-48d9-8755-deb191034aa3.png)
-
+![237r](https://user-images.githubusercontent.com/13173904/137838156-26517ab7-c22a-405c-a5df-0e351667b2df.png)
 
 #### lab1.c
 
