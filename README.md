@@ -9,7 +9,7 @@ gcc lab1.c -O3 -fdump-rtl-all
 python3 rtl2dot.py lab1.c.237r.expand -o lab1.c.237r.dot
 ```
 
-The output lab1.c.237r.dot file which can be copy to http://magjac.com/graphviz-visual-editor/ to preview or use [`dot`](https://graphviz.org/doc/info/command.html) program `dot -Tpng lab1.c.237r.dot > lab1.c.237r.png`
+The output lab1.c.237r.dot file which can be copy to http://magjac.com/graphviz-visual-editor/ to preview or use [`dot`](https://graphviz.org/doc/info/command.html) program(command `dot -Tpng lab1.c.237r.dot > lab1.c.237r.png`)
 
 #### preview
 
