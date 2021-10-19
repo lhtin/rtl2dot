@@ -192,7 +192,7 @@ def read_func2(func_name, lines):
             bb_label_map[bb_key] = ''
         if is_insn(insn_name) or is_jump_insn(insn_name) or is_call_insn(insn_name):
             code = get_code(list)
-            label = '{1} {2}\\r{0}\l\n'.format(code.replace('"', '\\"').replace('\n', '\l'), insn_name, list[1])
+            label = '{1} {2}\\r{0}\l\l'.format(code.replace('"', '\\"').replace('\n', '\l'), insn_name, list[1])
             bb_label_map[bb_key] += label
             current_node_with_label += '[label="{0}"]'.format(label)
             if is_jump_insn(insn_name) and item['label_next'] != '0':
@@ -235,7 +235,7 @@ def main(rtl_filename, output_filename, is_big = True):
                 })
             i += 1
         i = 0
-        str = 'digraph rtl {{\n  label="{0}"\n  node[shape="box" fontname="Courier" color="gray"]\n  labeljust=l\n'.format(os.path.basename(rtl_filename))
+        subgraph_list = []
         while i < len(funcs):
             # print(funcs[i])
             func_name = funcs[i]['func_name']
@@ -243,34 +243,65 @@ def main(rtl_filename, output_filename, is_big = True):
             start_index = funcs[i]['start_index']
             curr_lines = lines[start_index:funcs[i + 1]['start_index'] if i + 1 < len(funcs) else len(lines)]
             edges, bb_map, outer_nodes, bb_label_map, big_edges, big_bb = read_func2(func_name, curr_lines)
-            str += '  subgraph cluster_{0} {{\n    label = "{1}"\n'.format(func_name, func_name)
-            for node in outer_nodes:
-                str += '    {0};\n'.format(node)
+            subgraph = ''
             if is_big:
-                for bb_key, bb_label in bb_label_map.items():
-                    str += '    {0}[label="{1}" xlabel="{2}"];\n'.format(bb_key, bb_label, bb_key.replace(func_name + '_', ''))
-                for edge in big_edges:
-                    str += '    {0};\n'.format(edge)
-                str += '\n'
-                for bb_key, bb_label in bb_label_map.items():
-                    str += '    {{ rank="same"; {0}[style=invis fixedsize=true with=0]; {1}; }}\n'.format('r_' + bb_key, bb_key)
-                str += '    {0}[style=invis];\n'.format(' -> '.join(big_bb))
+                outer_nodes = '\n    '.join(list(map(lambda node: f'{node};', outer_nodes)))
+                bb_nodes = '\n    '.join(list(map(lambda item: f'{item[0]}[label="{item[1]}" xlabel="{item[0].replace(func_name + "_", "")}"];', bb_label_map.items())))
+                edges = '\n    '.join(list(map(lambda edge: f'{edge};', big_edges)))
+                rank_nodes = '\n    '.join(list(map(lambda item: f'{{ rank="same"; {"r_" + item[0]}[style=invis fixedsize=true with=0]; {item[0]}; }}', bb_label_map.items())))
+                subgraph = f'''
+  subgraph cluster_{func_name} {{
+    label="{func_name}";
+
+    /* outer nodes */
+    {outer_nodes}
+
+    /* bb nodes */
+    {bb_nodes}
+
+    /* edges */
+    {edges}
+
+    /* rank nodes */
+    {rank_nodes}
+
+    /* rank edges */
+    {" -> ".join(big_bb)}[style=invis];
+  }}
+  '''
+                subgraph_list.append(subgraph)
             else:
+                subgraph += '  subgraph cluster_{0} {{\n    label = "{1}"\n'.format(func_name, func_name)
+                for node in outer_nodes:
+                    subgraph += '    {0};\n'.format(node)
                 for bb_key, bb in bb_map.items():
-                    str += '    subgraph cluster_{0} {{\n      label = "{1}"\n      color=gray;\n'.format(bb_key, bb_key)
+                    subgraph += '    subgraph cluster_{0} {{\n      label = "{1}"\n      color=gray;\n'.format(bb_key, bb_key.replace(func_name + "_", ""))
                     for node in bb:
-                        str += '      {0};\n'.format(node)
-                    str += '    }\n'
+                        subgraph += '      {0};\n'.format(node)
+                    subgraph += '    }\n'
                 for edge in edges:
-                    str += '    {0};\n'.format(edge)
-            str += '  }\n'
+                    subgraph += '    {0};\n'.format(edge)
+                subgraph += '  }\n'
+                subgraph_list.append(subgraph)
             i += 1
-        str += '}'
+
+        rtl_basename = os.path.basename(rtl_filename)
+        subgraph_str = '\n'.join(subgraph_list)
+        graph = f'''
+digraph rtl {{
+  labelloc="t";
+  label="{rtl_basename}";
+
+  node[shape="box" fontname="Courier" color="gray"];
+
+{subgraph_str}
+}}
+'''
         if output_filename:
             with open(output_filename, 'w') as output_file:
-                output_file.write(str)
+                output_file.write(graph)
         else:
-            print(str)
+            print(graph)
 
 rtl_filename = None
 output_filename = None
